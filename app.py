@@ -51,7 +51,7 @@ import requests
 
 apikey = '54CC9DB5-A9E5-4DEF-AFCA-BFAEE77C7995'
 api_url = 'http://rest-sandbox.coinapi.io'
-endpoint = '/v1/exchangerate/BTC/EUR'
+endpoint = '/v1/assets'
 
 headers = {
     'X-CoinAPI-Key': apikey
@@ -64,8 +64,13 @@ status_code = response.status_code
 
 
 if status_code == 200:
-    print('El resultado de la consulta es')
-    print(response.text)
+    print('Las monedas disponibles son:')
+    response_json = response.json()
+
+    for coin in response_json:
+        if coin.get('asset_id').startswith('EUR'):
+            print(coin.get('asset_id'), coin.get('name'))
+
 else:
     print('La petición a la API ha fallado')
     print(f'El código de error es {status_code}')
