@@ -1,3 +1,10 @@
+"""
+Modelo <==> Controlador <==> Vista
+
+El modelo realiza las operaciones de negocio, persistencia,
+acceso a datos, cálculos...
+"""
+
 import requests
 
 from . import APIKEY
@@ -13,18 +20,20 @@ headers = {
 class APIError(Exception):
     pass
 
+
 class CriptoModel:
     """
     - constructor
     - moneda origen
     - moneda destino
     - cambio
-    - método(operación) consultar cambio
+    - método consultar cambio
     """
 
-    def __init__(self, origen, destino):
-        self.origen = origen
-        self.destino = destino
+    origen = ''
+    destino = ''
+
+    def __init__(self):
         self.cambio = 0.0
 
     def consultar_cambio(self):
@@ -37,5 +46,4 @@ class CriptoModel:
         else:
             raise APIError(
                 f'Error {response.status_code} {response.reason} al consultar la API'
-                )
-        
+            )
